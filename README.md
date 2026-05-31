@@ -65,3 +65,6 @@ RubiCube/
 ## Author
 
 Sridharshan
+## Application Screenshot
+
+![UI](images/project-ui.png)

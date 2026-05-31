@@ -110,4 +110,24 @@ public static void rotateDown(Cube cube) {
 
     //System.out.println("Down Face Rotated");
 }
+public static void rotateFrontInverse(Cube cube) {
+
+    rotateFront(cube);
+    rotateFront(cube);
+    rotateFront(cube);
+}
+
+public static void rotateRightInverse(Cube cube) {
+
+    rotateRight(cube);
+    rotateRight(cube);
+    rotateRight(cube);
+}
+
+public static void rotateUpInverse(Cube cube) {
+
+    rotateUp(cube);
+    rotateUp(cube);
+    rotateUp(cube);
+}
 }
