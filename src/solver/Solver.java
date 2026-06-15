@@ -32,8 +32,10 @@ private java.util.List<String> scrambleHistory =
     scrambleHistory.clear();
 
     String[] possibleMoves = {
-        "F","R","U"
-    };
+    "F",
+    "R",
+    "U"
+}; 
 
     java.util.Random random =
             new java.util.Random();
@@ -98,6 +100,45 @@ public java.util.List<String> getSolution() {
             break;
     }
 }
+
+public void applyInverseMove(
+        Cube cube,
+        String move) {
+            
+
+    switch(move) {
+
+        case "F'":
+            Move.rotateFrontInverse(cube);
+            break;
+
+        case "R'":
+            Move.rotateRightInverse(cube);
+            break;
+
+        case "U'":
+            Move.rotateUpInverse(cube);
+            break;
+
+         case "B'":
+            Move.rotateBack(cube);
+            Move.rotateBack(cube);
+            Move.rotateBack(cube);
+            break;
+
+        case "L'":
+            Move.rotateLeft(cube);
+            Move.rotateLeft(cube);
+            Move.rotateLeft(cube);
+            break;
+
+        case "D'":
+            Move.rotateDown(cube);
+            Move.rotateDown(cube);
+            Move.rotateDown(cube);
+            break;
+    }
+}
 public void applySolution(
         Cube cube,
         List<String> solution) {
@@ -120,4 +161,8 @@ public void applySolution(
         }
     }
 }   
+public List<String> getScrambleHistory() {
+
+    return scrambleHistory;
+}
 }

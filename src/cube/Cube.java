@@ -9,18 +9,7 @@ public class Cube {
         cube = new char[6][3][3];
 
         char[] colors = {'W', 'Y', 'R', 'O', 'B', 'G'};
-        cube[0][0][0] = '1';
-cube[0][0][1] = '2';
-cube[0][0][2] = '3';
-
-cube[0][1][0] = '4';
-cube[0][1][1] = '5';
-cube[0][1][2] = '6';
-
-cube[0][2][0] = '7';
-cube[0][2][1] = '8';
-cube[0][2][2] = '9';
-
+       
         for (int face = 0; face < 6; face++) {
 
             for (int i = 0; i < 3; i++) {
@@ -69,6 +58,33 @@ cube[0][2][2] = '9';
 
     return sb.toString();
 }
+public String getCubeNotation() {
+
+    StringBuilder sb =
+            new StringBuilder();
+
+    for(int face = 0;
+        face < 6;
+        face++) {
+
+        for(int row = 0;
+            row < 3;
+            row++) {
+
+            for(int col = 0;
+                col < 3;
+                col++) {
+
+                sb.append(
+                        cube[face][row][col]
+                );
+            }
+        }
+    }
+
+    return sb.toString();
+}
+
 public char[] getRow(int face, int row) {
 
     return cube[face][row].clone();
@@ -164,4 +180,25 @@ public void printFrontFace() {
         System.out.println();
     }
 }
+public String getCubeNotation1() {
+
+    StringBuilder sb = new StringBuilder();
+
+    for(int face = 0; face < 6; face++) {
+
+        for(int row = 0; row < 3; row++) {
+
+            for(int col = 0; col < 3; col++) {
+
+                sb.append(
+                    cube[face][row][col]
+                );
+            }
+        }
+    }
+
+    return sb.toString();
 }
+
+}
+

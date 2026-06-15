@@ -7,6 +7,13 @@ import image.ImageProcessor;
 import cube.Cube;
 import cube.Move;
 import solver.Solver;
+import solver.CubeValidator;
+import solver.ColorCounter; 
+import solver.CubeInput;
+import solver.ColorValidator;
+import solver.CubeSolverEngine;
+import solver.RealSolverAdapter;
+import solver.BFSCubeSolver;
 
 public class CubeUI {
 
@@ -25,16 +32,37 @@ public class CubeUI {
         JButton uploadButton = new JButton("Upload Image");
 
         JButton solveButton = new JButton("Solve Cube");
+        JButton bfsButton =
+        new JButton("Use BFS");
+
+JButton realSolverButton =
+        new JButton("Use Real Solver");
         JButton resetButton = new JButton("Reset");
         JButton scrambleButton = new JButton("Scramble");
         JButton debugButton = new JButton("Debug");
         JButton statusButton =
         new JButton("Status");
+        JButton infoButton =
+        new JButton("Project Info");
+        JButton inputButton =
+        new JButton("Manual Input");
         JTextArea outputArea = new JTextArea(10, 40);
         final Cube[] cube = { new Cube() };
 
 ImageProcessor processor = new ImageProcessor();
 Solver solver = new Solver();
+
+CubeSolverEngine engine =
+        new CubeSolverEngine();
+BFSCubeSolver bfsSolver =
+        new BFSCubeSolver();
+
+RealSolverAdapter realSolver =
+        new RealSolverAdapter();
+
+
+CubeInput cubeInput =
+        new CubeInput();
 
 final int[] currentFace = {0};
 
@@ -45,10 +73,15 @@ final int[] currentFace = {0};
         panel.add(uploadButton);
 
         panel.add(solveButton);
+        panel.add(bfsButton);
+
+panel.add(realSolverButton);
         panel.add(resetButton);
         panel.add(scrambleButton);
         panel.add(debugButton);
         panel.add(statusButton);
+        panel.add(infoButton);
+        panel.add(inputButton);
 
         panel.add(scrollPane);
 
@@ -98,6 +131,15 @@ final int[] currentFace = {0};
         path + "\n\n"
     );
 
+    outputArea.append(
+    processor.getFaceString(
+            cube[0],
+            currentFace[0]
+    )
+);
+
+outputArea.append("\n");
+
     currentFace[0]++;
 }
             }
@@ -112,13 +154,81 @@ final int[] currentFace = {0};
 
         outputArea.append("CURRENT CUBE STATE\n");
 
+        CubeValidator validator =
+        new CubeValidator();
+
+boolean valid =
+        validator.isValid(
+                cube[0].encodeState()
+        );
+
+outputArea.append(
+        "Cube Valid: "
+        + valid
+        + "\n"
+);
+
         outputArea.append(cube[0].encodeState());
+        ColorCounter counter =
+        new ColorCounter();
+
+counter.printCounts(
+        cube[0].encodeState()
+);
 
         outputArea.append("\n\n");
 
         Solver solver = new Solver();
+       /*  CubeNotationConverter converter =
+        new CubeNotationConverter();
 
-        outputArea.append("SOLUTION STEPS\n");
+String notation =
+        converter.convert(
+                cubeInput.getState()
+        );
+
+RealSolverAdapter adapter =
+        new RealSolverAdapter();
+
+java.util.List<String> moves =
+        adapter.solve(notation);
+        outputArea.append(
+        "\nGenerated Moves:\n"
+);
+
+for(String move : moves) {
+
+    outputArea.append(
+            move + " "
+    );
+}
+
+outputArea.append("\n"); */
+
+        java.util.List<String> steps =
+        engine.solve(
+            cube[0].encodeState()
+        );
+
+outputArea.append(
+        "\nSolve Steps:\n"
+);
+
+if(steps.isEmpty()) {
+
+    outputArea.append(
+        "Cube Already Solved\n"
+    );
+}
+
+for(String step : steps) {
+
+    outputArea.append(
+            step + " "
+    );
+}
+
+outputArea.append("\n");
 
         java.util.List<String> solution =
         solver.getSolution();
@@ -186,7 +296,8 @@ scrambleButton.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        Solver solver = new Solver();
+        
+        
 
 outputArea.append("\nScramble Moves:\n");
 
@@ -263,6 +374,163 @@ statusButton.addActionListener(
 
             outputArea.append(
                 "\n"
+            );
+        }
+    }
+);
+inputButton.addActionListener(
+    new ActionListener() {
+
+        @Override
+        public void actionPerformed(
+                ActionEvent e) {
+
+            String state =
+                    JOptionPane.showInputDialog(
+                            frame,
+                            "Enter 54-character cube state:"
+                    );
+
+            if(state != null &&
+               state.length() == 54) {
+                cubeInput.setState(state);
+                ColorValidator validator =
+        new ColorValidator();
+
+boolean valid =
+        validator.validateColors(state);
+
+outputArea.append(
+        "Color Valid: "
+        + valid
+        + "\n"
+);
+
+                outputArea.append(
+                    "\nManual State Loaded:\n"
+                );
+
+                outputArea.append(
+                    state + "\n"
+                );
+            }
+            else {
+
+                outputArea.append(
+                    "\nInvalid Input\n"
+                );
+            }
+        }
+    }
+);
+bfsButton.addActionListener(
+    new ActionListener() {
+
+        @Override
+        public void actionPerformed(
+                ActionEvent e) {
+
+            java.util.List<String> moves =
+                    bfsSolver.solve(
+                            cubeInput.getState()
+                    );
+
+            outputArea.append(
+                    "\nBFS Result:\n"
+            );
+
+            outputArea.append(
+                    moves.toString()
+            );
+
+            outputArea.append("\n");
+        }
+    }
+);
+realSolverButton.addActionListener(
+    new ActionListener() {
+
+        @Override
+        public void actionPerformed(
+                ActionEvent e) {
+
+            java.util.List<String> moves =
+        realSolver.solve(
+                solver.getScrambleHistory()
+        );
+        for(String move : moves) {
+
+    solver.applyInverseMove(
+            cube[0],
+            move
+    );
+}
+
+            outputArea.append(
+                    "\nReal Solver Result:\n"
+            );
+
+            outputArea.append(
+                    moves.toString()
+            );
+
+            outputArea.append(
+    "\nMoves Count: "
+    + moves.size()
+    + "\n"
+);
+            outputArea.append(
+        "\nCube After Solve:\n"
+);
+
+outputArea.append(
+        cube[0].encodeState()
+);
+
+outputArea.append(
+        "\nSolved: "
+        + cube[0].isSolved()
+        + "\n"
+);
+
+            outputArea.append("\n");
+        }
+    }
+);
+
+infoButton.addActionListener(
+    new ActionListener() {
+
+        @Override
+        public void actionPerformed(
+                ActionEvent e) {
+
+            outputArea.append(
+                "\n=== PROJECT INFO ===\n"
+            );
+
+            outputArea.append(
+                "Project: RubiCube Solver\n"
+            );
+
+            outputArea.append(
+                "Language: Java\n"
+            );
+
+            outputArea.append(
+                "OOP: Classes, Objects, Encapsulation, Abstraction\n"
+            );
+
+            outputArea.append(
+                "DSA: BFS, Queue, HashSet, State Encoding\n"
+            );
+
+            outputArea.append(
+                "GUI: Java Swing\n"
+            );
+
+            outputArea.append(
+                "Image Processing: OpenCV\n"
             );
         }
     }

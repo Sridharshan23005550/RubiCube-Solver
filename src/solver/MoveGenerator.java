@@ -1,21 +1,48 @@
 package solver;
 
+import cube.Cube;
+import cube.Move;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveGenerator {
 
-    public List<String> getMoves() {
+    public List<String> generateMoves(
+            String state) {
 
-        List<String> moves = new ArrayList<>();
+        List<String> neighbours =
+                new ArrayList<>();
 
-        moves.add("F");
-        moves.add("B");
-        moves.add("L");
-        moves.add("R");
-        moves.add("U");
-        moves.add("D");
+        CubeStateConverter converter =
+                new CubeStateConverter();
 
-        return moves;
+        Cube cube;
+
+        cube = converter.fromString(state);
+
+        Move.rotateFront(cube);
+
+        neighbours.add(
+                converter.toString(cube)
+        );
+
+        cube = converter.fromString(state);
+
+        Move.rotateRight(cube);
+
+        neighbours.add(
+                converter.toString(cube)
+        );
+
+        cube = converter.fromString(state);
+
+        Move.rotateUp(cube);
+
+        neighbours.add(
+                converter.toString(cube)
+        );
+
+        return neighbours;
     }
 }
