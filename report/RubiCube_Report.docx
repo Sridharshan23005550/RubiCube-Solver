@@ -1,0 +1,140 @@
+# RUBICUBE SOLVER
+
+## 1. Introduction
+
+RubiCube Solver is a Java-based desktop application developed to simulate and solve a Rubik's Cube. The project uses Object-Oriented Programming (OOP), Data Structures & Algorithms (DSA), Java Swing for the graphical user interface, and OpenCV for image processing.
+
+The application allows users to upload cube face images, detect colors, represent the cube digitally, scramble the cube, validate cube states, and generate solution steps.
+
+---
+
+## 2. Problem Statement
+
+Solving a Rubik's Cube manually can be difficult for beginners. The objective of this project is to create a software system that can represent a Rubik's Cube digitally, process cube images, and assist users in obtaining solution steps through an interactive graphical interface.
+
+---
+
+## 3. Objectives
+
+* Develop a digital representation of a Rubik's Cube.
+* Implement cube rotation operations.
+* Perform color detection using image processing.
+* Create an interactive GUI using Java Swing.
+* Generate and display solution moves.
+* Apply OOP and DSA concepts in a real-world project.
+
+---
+
+## 4. Technologies Used
+
+### Programming Language
+
+* Java
+
+### GUI Framework
+
+* Java Swing
+
+### Image Processing
+
+* OpenCV
+
+### Concepts Used
+
+* Object-Oriented Programming
+* Data Structures and Algorithms
+* Breadth First Search (BFS)
+* State Encoding
+* Arrays
+* Queues
+* HashSet
+
+---
+
+## 5. System Architecture
+
+Image Upload
+↓
+Color Detection
+↓
+Image Processing
+↓
+Cube Representation
+↓
+Validation
+↓
+Solver
+↓
+GUI Output
+
+---
+
+## 6. Modules
+
+### Cube Module
+
+Represents the Rubik's Cube internally and stores the state of all faces.
+
+### Move Module
+
+Implements cube rotations such as Front, Back, Left, Right, Up, and Down moves.
+
+### Solver Module
+
+Generates scramble moves, validates cube states, and produces solution sequences.
+
+### Image Processing Module
+
+Uses OpenCV to load images and detect cube colors.
+
+### GUI Module
+
+Provides buttons for uploading images, solving, scrambling, resetting, checking status, and manual cube input.
+
+---
+
+## 7. Features Implemented
+
+* Cube Representation
+* Cube Rotation Operations
+* Scramble Generation
+* Cube State Encoding
+* Cube Validation
+* Manual Cube Input
+* OpenCV Image Processing
+* Color Detection
+* Java Swing GUI
+* Solution Display
+* BFS-Based Search Structure
+
+---
+
+## 8. Results
+
+The project successfully:
+
+* Represents Rubik's Cube states digitally.
+* Performs cube rotations.
+* Detects colors from uploaded images.
+* Displays cube information through a GUI.
+* Generates solution move sequences for supported cube states.
+* Demonstrates practical use of OOP, DSA, Swing, and OpenCV.
+
+---
+
+## 9. Future Scope
+
+* Improve color detection accuracy.
+* Integrate advanced solving algorithms.
+* Add real-time camera scanning.
+* Develop a web version.
+* Develop a mobile application.
+* Implement Kociemba Solver integration.
+* Improve visualization of cube states.
+
+---
+
+## 10. Conclusion
+
+RubiCube Solver demonstrates the practical application of Java programming, Object-Oriented Programming, Data Structures & Algorithms, image processing, and GUI development. The project provides a strong foundation for future enhancements and serves as a useful educational and problem-solving tool.
+images/project-ui.png.png

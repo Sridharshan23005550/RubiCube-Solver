@@ -3,7 +3,6 @@ package image;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-import image.ColorDetector;
 import cube.Cube;
 public class ImageProcessor {
 

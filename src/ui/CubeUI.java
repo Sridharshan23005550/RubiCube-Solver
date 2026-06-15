@@ -214,13 +214,6 @@ outputArea.append(
         "\nSolve Steps:\n"
 );
 
-if(steps.isEmpty()) {
-
-    outputArea.append(
-        "Cube Already Solved\n"
-    );
-}
-
 for(String step : steps) {
 
     outputArea.append(
